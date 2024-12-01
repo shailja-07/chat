@@ -1,6 +1,7 @@
 from langchain.chains.llm import LLMChain
 from langchain.prompts import ChatPromptTemplate
 from langchain_community.llms import HuggingFaceHub
+from langchain_huggingface import HuggingFaceEndpoint
 import joblib 
 
 model_name = "Qwen/Qwen2.5-Coder-32B-Instruct"
