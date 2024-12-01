@@ -5,10 +5,12 @@ from langchain_huggingface import HuggingFaceEndpoint
 import joblib 
 
 model_name = "Qwen/Qwen2.5-Coder-32B-Instruct"
+hf_api_token = "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"
 
-llm = HuggingFaceHub(repo_id=model_name, huggingfacehub_api_token="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")
-
-
+llm = HuggingFaceEndpoint(
+    model=model_name,
+    token=hf_api_token  
+)
 
 prompt = ChatPromptTemplate.from_messages(
         [

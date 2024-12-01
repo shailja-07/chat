@@ -2,5 +2,6 @@ fastapi==0.115.5
 joblib==1.4.2
 langchain==0.3.9
 langchain_community==0.3.8
+langchain_huggingface==0.1.2
 pydantic==2.10.2
 uvicorn==0.32.1
