@@ -3,14 +3,12 @@ from langchain.prompts import ChatPromptTemplate
 from fastapi import FastAPI
 from pydantic import BaseModel
 import uvicorn
-import os
-from langchain_huggingface import HuggingFaceEndpoint
+from langchain_community.llms import HuggingFaceHub
 
-api_key = os.getenv('MY_API_KEY')
 
 model_name = "Qwen/Qwen2.5-Coder-32B-Instruct"
 
-llm = HuggingFaceEndpoint(repo_id=model_name, huggingfacehub_api_token=api_key)
+llm = HuggingFaceHub(repo_id=model_name, huggingfacehub_api_token="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")
 
 
 prompt = ChatPromptTemplate.from_messages(
