@@ -1,26 +1,7 @@
-from langchain.chains.llm import LLMChain
-from langchain.prompts import ChatPromptTemplate
-from fastapi import FastAPI
 from pydantic import BaseModel
 import uvicorn
-from langchain_community.llms import HuggingFaceHub
 from fastapi import FastAPI, HTTPException
-
-model_name = "Qwen/Qwen2.5-Coder-32B-Instruct"
-
-llm = HuggingFaceHub(repo_id=model_name, huggingfacehub_api_token="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")
-
-
-prompt = ChatPromptTemplate.from_messages(
-        [
-            ("system", "Generate information in one complete bullet point for the following topic:\n\n{context}")
-        ]
-    )
-    
-    
-llm_chain = LLMChain(llm=llm, prompt=prompt)
-
-
+import joblib
 app = FastAPI()
 
 
@@ -44,10 +25,10 @@ def detail(data: Data):
         raise HTTPException(status_code=400, detail="Input text cannot be empty")
     
     try:
-        info_text = llm_chain.run(input_data)
+        joblib.dump(input_data,'data.pkl')
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
+    info_text=joblib.load('output.pkl')
     return {"information": info_text}  
 
 
