@@ -2,8 +2,10 @@ from pydantic import BaseModel
 import uvicorn
 from fastapi import FastAPI, HTTPException
 import joblib
+
 app = FastAPI()
 
+llm_chain=joblib.load('llm.pkl')
 
 class Data(BaseModel):
     text: str
@@ -25,10 +27,9 @@ def detail(data: Data):
         raise HTTPException(status_code=400, detail="Input text cannot be empty")
     
     try:
-        joblib.dump(input_data,'data.pkl')
+        info_text=llm_chain.run(input_data)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-    info_text=joblib.load('output.pkl')
     return {"information": info_text}  
 
 
