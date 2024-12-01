@@ -7,8 +7,7 @@ import uvicorn
 import os
 
 model_name = "Qwen/Qwen2.5-Coder-32B-Instruct"
-llm = HuggingFaceHub(repo_id=model_name, huggingfacehub_api_token=os.environ.get("api_key")
-)
+llm = HuggingFaceHub(repo_id=model_name, huggingfacehub_api_token="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")
 
 prompt = ChatPromptTemplate.from_messages(
         [
