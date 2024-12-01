@@ -8,7 +8,7 @@ import os
 api_key = os.getenv('MY_API_KEY')
 
 model_name = "Qwen/Qwen2.5-Coder-32B-Instruct"
-llm = HuggingFaceHub(repo_id=model_name, huggingfacehub_api_token="api_key")
+llm = HuggingFaceHub(repo_id=model_name, huggingfacehub_api_token=api_key)
 
 prompt = ChatPromptTemplate.from_messages(
         [
