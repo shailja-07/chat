@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import uvicorn
 from langchain_community.llms import HuggingFaceHub
-
+from fastapi import FastAPI, HTTPException
 
 model_name = "Qwen/Qwen2.5-Coder-32B-Instruct"
 
@@ -38,10 +38,16 @@ def get_name(name: str):
 
 @app.post("/detail")
 def detail(data: Data):
-    input_data =data.text.strip() 
+    input_data = data.text.strip()
     
-    if input_data:
-        info_text=llm_chain.run(input_data)
+    if not input_data:
+        raise HTTPException(status_code=400, detail="Input text cannot be empty")
+    
+    try:
+        info_text = llm_chain.run(input_data)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
     return {"information": info_text}  
 
 
