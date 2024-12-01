@@ -30,14 +30,18 @@ class Data(BaseModel):
 def root():
     return {"message": "Welcome!"}
 
-@app.post("/predict")
-def predict(data: Data):
-    input_data = data.text 
+@app.get('/{name}')
+def get_name(name: str):
+    return {'hello': f'{name}'}
+
+@app.post("/detail")
+def detail(data: Data):
+    input_data =data.text.strip() 
     
     if input_data:
         info_text=llm_chain.run(input_data)
-    else:
-        print("enter topic")
     return {"information": info_text}  
 
 
+if __name__ == '__main__':
+    uvicorn.run(app, host='127.0.0.1', port=8000)
